@@ -66,7 +66,7 @@ install_apt_apps() {
 install_apt_apps "${apt_app_list[@]}"
 
 # Installation des applications par cargo
-curl https://sh.rustup.rs -sSf | sh
+curl https://sh.rustup.rs -sSf | sh -y
 
 cargo install sccache
 export RUSTC_WRAPPER="sccache cargo install {package}"
