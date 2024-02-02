@@ -58,7 +58,7 @@ apt_app_list=("zsh" "sudo" "curl" "nala" "build-essential" "cmake" "libssl-dev" 
 install_apt_apps() {
    for app in "$@"; do
        echo "Installation de '$app'..."
-       apt-get install "$app" -y
+       apt-get install "$app"
        echo "Installation de '$app' réussie"
    done
 }
