@@ -11,7 +11,7 @@ username='shrekrequiem'
 
 # Création de shrekrequiem
 create_user() {
-   
+
    # Check if the user already exists
    if id "$username" >/dev/null 2>&1; then
       echo "User $username already exists."
@@ -46,21 +46,34 @@ create_user() {
 
 
 # Installation des applications par apt
-if command -v apt-get &> /dev/null
+if command -v nala &> /dev/null
 then
-    echo "apt-get est installé"
+    echo "nala est installé"
 else
-    echo "apt-get n'est pas installé"
+    echo "nala n'est pas installé"
 fi
 
-apt_app_list=("zsh" "sudo" "curl" "nala" "build-essential" "cmake" "libssl-dev" "pkg-config" "ca-certificates")
+apt_app_list=("zsh" "sudo" "curl" "build-essential" "cmake" "libssl-dev" "pkg-config" "ca-certificates")
+
+#install_apt_apps() {
+#   for app in "$@"; do
+#       echo "Installation de '$app'..."
+#       nala install "$app" -y
+#       echo "Installation de '$app' réussie"
+#   done
+#}
 
 install_apt_apps() {
-   for app in "$@"; do
-       echo "Installation de '$app'..."
-       apt-get install "$app"
-       echo "Installation de '$app' réussie"
-   done
+    apps_to_install=""
+    for app in "$@"; do
+        echo "Adding '$app' to the installation list..."
+        apps_to_install+=" $app"
+    done
+
+    echo "Installing apps: $apps_to_install"
+    nala install "$apps_to_install" -y
+
+    echo "Installation complete for all apps"
 }
 
 install_apt_apps "${apt_app_list[@]}"
@@ -81,7 +94,7 @@ install_cargo_apps() {
     exit 1
   fi
 
-  # Itération à travers la liste 
+  # Itération à travers la liste
   for app in "$@"; do
     echo "Installation de '$app'..."
     cargo install "$app"
@@ -130,3 +143,6 @@ git clone https://github.com/unixorn/warhol.plugin.zsh.git /home/shrekrequiem/.o
 git clone https://github.com/zsh-users/zsh-history-substring-search /home/shrekrequiem/.oh-my-zsh/custom/plugins/zsh-history-substring-search
 git clone https://github.com/marlonrichert/zsh-autocomplete.git /home/shrekrequiem/.oh-my-zsh/custom/plugins/zsh-autocomplete
 git clone https://github.com/zsh-users/zsh-autosuggestions /home/shrekrequiem/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+
+export GITHUB_USERNAME="ShrekRequiem"
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply $GITHUB_USERNAME
