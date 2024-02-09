@@ -56,25 +56,12 @@ fi
 
 apt_app_list=("zsh" "sudo" "curl" "build-essential" "cmake" "libssl-dev" "pkg-config" "ca-certificates")
 
-#install_apt_apps() {
-#   for app in "$@"; do
-#       echo "Installation de '$app'..."
-#       nala install "$app" -y
-#       echo "Installation de '$app' réussie"
-#   done
-#}
-
 install_apt_apps() {
-    apps_to_install=""
-    for app in "$@"; do
-        echo "Adding '$app' to the installation list..."
-        apps_to_install+=" $app"
-    done
-
-    echo "Installing apps: $apps_to_install"
-    nala install "$apps_to_install" -y
-
-    echo "Installation complete for all apps"
+   for app in "$@"; do
+       echo "Installation de '$app'..."
+       nala install "$app" -y
+       echo "Installation de '$app' réussie"
+   done
 }
 
 install_apt_apps "${apt_app_list[@]}"
